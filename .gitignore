@@ -1,0 +1,7 @@
+*~
+*.idea
+*.iml
+*plugin.xml
+node_modules/
+.project
+.settings
