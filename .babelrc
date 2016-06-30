@@ -1,0 +1,21 @@
+{
+  "comments": "The current environment will use process.env.BABEL_ENV. When BABEL_ENV is not available, it will fallback to NODE_ENV, and if that is not available it will default to development.",
+  "env": {
+    "dev": {
+      "plugins": []
+    },
+    "prod": {
+      "plugins": []
+    }
+  },
+  "plugins": [
+    "transform-export-extensions",
+    "transform-function-bind",
+    "transform-runtime"
+  ],
+  "presets": [
+    "es2015",
+    "react",
+    "stage-2"
+  ]
+}
