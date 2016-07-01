@@ -1,14 +1,36 @@
-# 2016-platform
+# [2016-platform](https://github.com/epikhighs/2016-platform)
 
 What I have working so far
-1. Configured babel to have proper support for the features we want with ES next.
-2. got babel-loader working to translate ES6 code & modules
 
+1. babel
+    - Configured babel to have proper support for the features we want with ES next.
+    - got babel-loader working to translate ES6 code & modules
+1. webpack
+    - webpack-validator
+        - validates webpack.config against a schema
+    - html-webpack-plugin
+        - auto generates html (can use this to auto generate demo fixtures as well that will encapsulate isolated features of the app)
+        - specifying a template to base the generated html that has google font loader and google analytics - proving it's compatible w/ these 3rd party libs.
+    - favicons-webpack-plugin
+        - handles cross-platform favicon output based on a PNG source 
+    - building output
+1. AMD compatibility
+    1. loaded in AMD module
+    1. loaded in AMD module from ES6 module
+    1. loaded in ES6 module from AMD module
+    
 Todo
-1. webpack-validator
-1. hookup html-webpack-plugin
-1. favicons-webpack-plugin
- 
+
+1. AMD compatibility
+    1. first load in vendors from js/vendor
+    1. then load in most of vendors form npm directly
+1. dev environment setup
+    1. hot module replace HMR
+    1. less to CSS packing
+    1. how to load in TPLs or convert to HBS?
+1. prod env setup
+    1. get common chunks shared
+
 ## babel
 * babel-cli contains babel and the cli
 * babel-core contains the Node API and require hook
@@ -37,8 +59,7 @@ Todo
         * extract text plugin
         * can get flash of unstyled content otherwise
         * html-webpack-plugin will auto detect and inject the CSS styles
-* I like to use path.join, but path.resolve would be a good alternative. See the Node.js path API for further details.
-    * it is recommended that using path.join for cross-platform to deal with all the path stuff.
+* it is recommended using path.join for cross-platform to deal with all the path stuff.
 https://www.npmjs.com/package/webpack-validator
 https://www.npmjs.com/package/html-webpack-plugin
 https://www.npmjs.com/package/favicons-webpack-plugin
@@ -55,6 +76,8 @@ https://www.npmjs.com/package/favicons-webpack-plugin
 ## purifycss remove unused css (works with SPAs)
 * can be useful for using 3rd party vendor css (e.g. bootstrap) where you don't use all their styles
 
+## stampit
+* https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9#.78gxnndv6
 ## moment
 * http://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack
 ```javascript
@@ -64,3 +87,10 @@ https://www.npmjs.com/package/favicons-webpack-plugin
         ]
     }
 ```
+## svgs
+* webpack loaders for svgs
+    * svg-react: Load SVG files as JSX-ified React.createClass declarations.
+    * svg-url: Loads SVG file as utf-8 encoded data:URI string.
+    * svg-as-symbol: Wraps content of root element of source SVG file inside symbol element and returns resulting markup.
+    * svg-sprite: Like style-loader but for SVG: it creates a single SVG sprite from a set of images, appends it to DOM and returns relative symbol url to be used with svg’s <use>.
+    * line-art: Inlines SVG files, converting all of its nodes to paths. Useful for line art animations in React components.
