@@ -12,8 +12,11 @@ What I have working so far
         - auto generates html (can use this to auto generate demo fixtures as well that will encapsulate isolated features of the app)
         - specifying a template to base the generated html that has google font loader and google analytics - proving it's compatible w/ these 3rd party libs.
     - favicons-webpack-plugin
-        - handles cross-platform favicon output based on a PNG source 
+        - handles cross-platform favicon output based on a PNG source
+    - cleaning /dist on build
     - building output
+        - AMD/ES6 mixed output
+        - ES6 only output
 1. AMD compatibility
     1. loaded in AMD module
     1. loaded in AMD module from ES6 module
@@ -22,14 +25,18 @@ What I have working so far
 Todo
 
 1. AMD compatibility
+    1. load in shims 
     1. first load in vendors from js/vendor
     1. then load in most of vendors form npm directly
 1. dev environment setup
+    1. debugging!
     1. hot module replace HMR
     1. less to CSS packing
     1. how to load in TPLs or convert to HBS?
 1. prod env setup
     1. get common chunks shared
+    1. JS source maps
+    1. CSS source maps
 
 ## babel
 * babel-cli contains babel and the cli

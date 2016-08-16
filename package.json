@@ -32,7 +32,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-babel": "babel src -d build",
     "main": "babel-node src/index.js",
-    "build-webpack": "webpack"
+    "build-webpack": "webpack",
+    "start-webpack-dev-server": "webpack-dev-server"
   },
   "repository": {
     "type": "git",

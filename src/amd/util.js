@@ -3,7 +3,7 @@
  */
 define(function () {
     'use strict';
-    var someEs6 = require('./some-es6');
+    var someEs6 = require('./someEs6');
 
     return {
         sayHello: function () {

@@ -1,4 +1,4 @@
-import { tpl } from './login/math-util';
+import { tpl } from './login/mathUtil';
 
 let addAll2 = function () {
     return Array.from(arguments).reduce((a, b) => a + b);

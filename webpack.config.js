@@ -8,6 +8,7 @@ const webpackValidator = require('webpack-validator');
 const webpackMerge = require('webpack-merge');
 const path = require('path');
 
+const npmLifecycleEvent = process.env.npm_lifecycle_event;
 // add all path/dir related stuff here to properly handle
 // backslashes vs. forward slashes and other platform specific differences
 const p = {
@@ -15,10 +16,10 @@ const p = {
     appTpl: path.join(__dirname, 'src/index.ejs'),
     amd: path.join(__dirname, 'src/amd'),
     dist: path.join(__dirname, 'dist'),
-    logo: path.join(__dirname, 'src/cl-logo.png'),
+    logo: path.join(__dirname, 'src/logo.png'),
 };
 
-var config = {
+const common = {
     entry: {
         app: p.app, // i guess it auto looks for index.js within this dir
         amd: p.amd,
@@ -59,9 +60,17 @@ var config = {
         }),
     ],
     resolve: {
-        // alias:
         modulesDirectories: ['node_modules', 'vendor_modules'],
     },
 };
+
+var config;
+
+// Detect how npm is run and branch based on that
+if (npmLifecycleEvent === 'build') {
+    config = webpackMerge(common, {});
+} else {
+    config = webpackMerge(common, {});
+}
 
 module.exports = webpackValidator(config);
