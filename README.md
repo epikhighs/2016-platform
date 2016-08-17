@@ -18,16 +18,20 @@ What I have working so far
         - AMD/ES6 mixed output
         - ES6 only output
 1. AMD compatibility
-    1. loaded in AMD module
-    1. loaded in AMD module from ES6 module
-    1. loaded in ES6 module from AMD module
+    1. for application code
+        1. loaded in AMD module
+        1. loaded in AMD module from ES6 module
+        1. loaded in ES6 module from AMD module
+    1. for vendor code (no shim - e.g. moment.js)
+        1. loaded in AMD module from es6 module
+        1. loaded in AMD module from AMD module
     
 Todo
 
 1. AMD compatibility
-    1. load in shims 
-    1. first load in vendors from js/vendor
-    1. then load in most of vendors form npm directly
+    1. load in shims
+        1. first load in vendors from js/vendor
+        1. then load in most of vendors form npm directly
 1. dev environment setup
     1. debugging!
     1. hot module replace HMR

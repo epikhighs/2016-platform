@@ -60,6 +60,9 @@ const common = {
         }),
     ],
     resolve: {
+        alias: {
+            moment: 'js/moment',
+        },
         modulesDirectories: ['node_modules', 'vendor_modules'],
     },
 };
