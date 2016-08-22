@@ -61,7 +61,8 @@ const common = {
     ],
     resolve: {
         alias: {
-            moment: 'js/moment',
+            'marionette': 'backbone.marionette',
+            'underscore': 'lodash',
         },
         modulesDirectories: ['node_modules', 'vendor_modules'],
     },

@@ -25,9 +25,21 @@ What I have working so far
     1. for vendor code (no shim - e.g. moment.js)
         1. loaded in AMD module from es6 module
         1. loaded in AMD module from AMD module
+    1. loaded 3rd party vendor code that doesn't need to be shimmed
     
 Todo
 
+1. 3rd party vendor compatibility
+    1. verify if twbs-pagination v1.3.1 works for us.  we used to use v1.2.5
+    1. need to shim
+        1. bootstrap
+        1. bootstrap switch
+        1. date range picker
+        1. twbs-pagination????
+        1. select2
+    1. text & tpl loader
+    1. kendo?
+    1. fix moment from loading in locale directory
 1. AMD compatibility
     1. load in shims
         1. first load in vendors from js/vendor
