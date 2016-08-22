@@ -25,8 +25,18 @@ What I have working so far
     1. for vendor code (no shim - e.g. moment.js)
         1. loaded in AMD module from es6 module
         1. loaded in AMD module from AMD module
+1. 3rd party vendor libs
     1. loaded 3rd party vendor code that doesn't need to be shimmed
-    
+1. Existing app compatibility
+    1. using underscore-template-loader instead of tpl!
+    1. using json-loader instead of text!
+    1. using raw-loader to load tpl-hash based TPLs
+1. Breaking changes
+    1. need to change TPL require syntax
+    1. need to change tpl-hash based TPLs to .tpx extension
+    1. need to change json imports to use json-loader
+    1. Need to set /src as resource root for ctrl+click in IDE to work
+
 Todo
 
 1. 3rd party vendor compatibility

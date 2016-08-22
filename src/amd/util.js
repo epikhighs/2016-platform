@@ -4,7 +4,6 @@
 define(function () {
     'use strict';
     var _ = require('underscore');
-    var someEs6 = require('./someEs6');
     var moment = require('moment');
     var Highcharts = require('highcharts');
     var Marionette = require('marionette');
@@ -12,9 +11,24 @@ define(function () {
     var Backbone = require('backbone');
     var accounting = require('accounting');
     var Bluebird = require('bluebird');
+    var loginTpl = require('login/login.tpl');
+    var sampleJson = require('amd/sampleJson.json');
+    var sampleTpl = require('amd/sample.tpl');
+    var sampleMultipleTpl = require('amd/sampleMultiple.tpx');
+    var someEs6 = require('amd/someEs6');
+    var tplHash = require('amd/tpl-hash');
+
     var log = function (msg) {
         $('body').append(`<div>${msg}</div>`);
     };
+
+    log(JSON.stringify(sampleJson));
+    log(sampleJson.name);
+    log(sampleTpl({name: 'daniel'}));
+    log(loginTpl({name: 'daniel'}));
+    tplHash.setTpl(sampleMultipleTpl);
+    log(tplHash.getTpl('sample-tpl'));
+    log(tplHash.getTpl('sample-tpl').trim() === 'tpl: <%= data.name %>');
 
     Bluebird.resolve(1).then((result) => log(`bluebird promise resolution ${result}`));
 
@@ -32,12 +46,12 @@ define(function () {
     });
 
     var Model = Backbone.Model.extend();
-    log(JSON.stringify((new Model({dan: 239587})).toJSON()));
+    var sampleModel = new Model({name: 'sample model name'});
+    log(JSON.stringify((sampleModel).toJSON()));
 
     var view = new Marionette.ItemView({
-        template: function () {
-            return 'marionet viewwww';
-        }
+        template: sampleTpl,
+        model: sampleModel,
     });
     log(view.render().$el.html());
 

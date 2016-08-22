@@ -1,0 +1,3 @@
+<script id='sample-tpl' type="text/template">
+    tpl: <%= data.name %>
+</script>

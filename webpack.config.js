@@ -17,6 +17,7 @@ const p = {
     amd: path.join(__dirname, 'src/amd'),
     dist: path.join(__dirname, 'dist'),
     logo: path.join(__dirname, 'src/logo.png'),
+    login: path.join(__dirname, 'src/login'),
 };
 
 const common = {
@@ -37,6 +38,23 @@ const common = {
                 query: {
                     cacheDirectory: true,
                 }
+            },
+            {
+                test: /\.tpl$/,
+                loader: 'underscore-template-loader',
+                query: {
+                    engine: 'lodash',
+                    parseMacros: false,
+                    variable: 'data',
+                },
+            },
+            {
+                test: /\.tpx$/,
+                loader: 'raw-loader',
+            },
+            {
+                test: /\.json/,
+                loader: 'json-loader',
             },
         ],
     },
@@ -63,6 +81,8 @@ const common = {
         alias: {
             'marionette': 'backbone.marionette',
             'underscore': 'lodash',
+            'amd': p.amd,
+            'login': p.login,
         },
         modulesDirectories: ['node_modules', 'vendor_modules'],
     },
