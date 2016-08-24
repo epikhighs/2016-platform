@@ -1,4 +1,5 @@
-import * as util from './util';
+import * as util from 'amd/util.js';
+import * as shim from 'amd/vendorShimTest.js';
 import $ from 'jquery';
 
 $('body').append('jquery is loading in ES6 module');

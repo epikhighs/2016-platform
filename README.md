@@ -17,6 +17,9 @@ What I have working so far
     - building output
         - AMD/ES6 mixed output
         - ES6 only output
+    - hot module replacement (HMR) works
+    - debugging works w/ source maps enabled however devtool: 'source-map' only works
+        - 'eval-source-map' has mixed results w/ AMD modules where nested functions are break pointable but not outer define lvl functions.
 1. AMD compatibility
     1. for application code
         1. loaded in AMD module
@@ -27,6 +30,7 @@ What I have working so far
         1. loaded in AMD module from AMD module
 1. 3rd party vendor libs
     1. loaded 3rd party vendor code that doesn't need to be shimmed
+    1. needed to resolve.alias jQuery to jquery, then use import loader to import in jQuery to 3rd party libs that dep on jQuery existing on the global scope (e.g. select2, bootstrap etc)
 1. Existing app compatibility
     1. using underscore-template-loader instead of tpl!
     1. using json-loader instead of text!
@@ -50,19 +54,18 @@ Todo
     1. text & tpl loader
     1. kendo?
     1. fix moment from loading in locale directory
+    1. load in 3rd party CSS
 1. AMD compatibility
     1. load in shims
         1. first load in vendors from js/vendor
         1. then load in most of vendors form npm directly
 1. dev environment setup
-    1. debugging!
-    1. hot module replace HMR
     1. less to CSS packing
-    1. how to load in TPLs or convert to HBS?
 1. prod env setup
     1. get common chunks shared
     1. JS source maps
     1. CSS source maps
+    1. SVGs
 
 ## babel
 * babel-cli contains babel and the cli
@@ -127,3 +130,6 @@ https://www.npmjs.com/package/favicons-webpack-plugin
     * svg-as-symbol: Wraps content of root element of source SVG file inside symbol element and returns resulting markup.
     * svg-sprite: Like style-loader but for SVG: it creates a single SVG sprite from a set of images, appends it to DOM and returns relative symbol url to be used with svg’s <use>.
     * line-art: Inlines SVG files, converting all of its nodes to paths. Useful for line art animations in React components.
+    
+## links
+* https://www.npmjs.com/package/webpack-webstorm-debugger-script

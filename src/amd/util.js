@@ -1,7 +1,7 @@
 /**
  * @module
  */
-define(function () {
+define(function (require) {
     'use strict';
     var _ = require('underscore');
     var moment = require('moment');

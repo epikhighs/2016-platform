@@ -4,8 +4,10 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const webpackValidator = require('webpack-validator');
 const webpackMerge = require('webpack-merge');
+const configPart = require('./lib/devServerPart');
 const path = require('path');
 
 const npmLifecycleEvent = process.env.npm_lifecycle_event;
@@ -32,16 +34,17 @@ const common = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.js$/, loader: 'babel-loader',
                 include: [p.app],
-                loader: 'babel-loader',
                 query: {
                     cacheDirectory: true,
                 }
             },
             {
-                test: /\.tpl$/,
-                loader: 'underscore-template-loader',
+                test: /\.json/, loader: 'json-loader',
+            },
+            {
+                test: /\.tpl$/, loader: 'underscore-template-loader',
                 query: {
                     engine: 'lodash',
                     parseMacros: false,
@@ -49,12 +52,7 @@ const common = {
                 },
             },
             {
-                test: /\.tpx$/,
-                loader: 'raw-loader',
-            },
-            {
-                test: /\.json/,
-                loader: 'json-loader',
+                test: /\.tpx$/, loader: 'raw-loader',
             },
         ],
     },
@@ -76,13 +74,24 @@ const common = {
             template: p.appTpl,
             chunks: ['app'],
         }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+        }),
     ],
     resolve: {
         alias: {
-            'marionette': 'backbone.marionette',
-            'underscore': 'lodash',
             'amd': p.amd,
+            'bootstrap': 'js/bootstrap',
+            'bootstrapSwitch': 'js/bootstrap-switch',
+            'dateRangePicker': 'js/daterangepicker',
             'login': p.login,
+            'marionette': 'backbone.marionette',
+            'pagination': 'js/jquery.twbsPagination',
+            'radio': 'backbone.radio',
+            'select2': 'js/select2',
+            'underscore': 'lodash',
         },
         modulesDirectories: ['node_modules', 'vendor_modules'],
     },
@@ -92,9 +101,17 @@ var config;
 
 // Detect how npm is run and branch based on that
 if (npmLifecycleEvent === 'build') {
-    config = webpackMerge(common, {});
+    config = webpackMerge(common, {
+        devtool: 'source-map',
+    });
 } else {
-    config = webpackMerge(common, {});
+    config = webpackMerge(
+        common,
+        {
+            devtool: 'source-map',
+        },
+        configPart.devServer({})
+    );
 }
 
 module.exports = webpackValidator(config);
