@@ -10,12 +10,14 @@ define(function (require) {
     require('dateRangePicker');
     require('pagination');
     require('radio');
+    var kendo = require('kendo.core');
+    require('kendo.grid');
 
     var log = function (msg) {
         $('body').append(`<div>${msg}</div>`);
     };
 
-    var j = 3;
+
     log('---------------------- vendor shim test ------------------');
     $('body').append('<select id="select2"></select>');
     $('body').append('<input id="bs-switch" type="checkbox"/>');
@@ -28,6 +30,7 @@ define(function (require) {
         $('#bs-pagination').twbsPagination({totalPages: 1,});
         $('#drp').daterangepicker({parentEl: '#drp-parent'});
     }, 10);
+    log(kendo.format('{0:0,.0;-0,.0;0}{1}:1', '134'));
     log('---------------------- vendor shim test ------------------');
 
     return {

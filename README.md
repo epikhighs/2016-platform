@@ -29,8 +29,9 @@ What I have working so far
         1. loaded in AMD module from es6 module
         1. loaded in AMD module from AMD module
 1. 3rd party vendor libs
-    1. loaded 3rd party vendor code that doesn't need to be shimmed
-    1. needed to resolve.alias jQuery to jquery, then use import loader to import in jQuery to 3rd party libs that dep on jQuery existing on the global scope (e.g. select2, bootstrap etc)
+    1. loaded 3rd party vendor code that doesn't need to be shimmed via npm/package.json config
+    1. needed to use ProvidePlugin to add jQuery, $ and window.jQuery to global scope
+    1. still keeping local copy of kendo until they figure out how to use a private NPM for distro
 1. Existing app compatibility
     1. using underscore-template-loader instead of tpl!
     1. using json-loader instead of text!
@@ -44,21 +45,8 @@ What I have working so far
 Todo
 
 1. 3rd party vendor compatibility
-    1. verify if twbs-pagination v1.3.1 works for us.  we used to use v1.2.5
-    1. need to shim
-        1. bootstrap
-        1. bootstrap switch
-        1. date range picker
-        1. twbs-pagination????
-        1. select2
-    1. text & tpl loader
-    1. kendo?
     1. fix moment from loading in locale directory
     1. load in 3rd party CSS
-1. AMD compatibility
-    1. load in shims
-        1. first load in vendors from js/vendor
-        1. then load in most of vendors form npm directly
 1. dev environment setup
     1. less to CSS packing
 1. prod env setup

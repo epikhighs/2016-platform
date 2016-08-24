@@ -18,6 +18,7 @@ const p = {
     appTpl: path.join(__dirname, 'src/index.ejs'),
     amd: path.join(__dirname, 'src/amd'),
     dist: path.join(__dirname, 'dist'),
+    kendo: path.join(__dirname, 'vendor_modules/js/kendo'),
     logo: path.join(__dirname, 'src/logo.png'),
     login: path.join(__dirname, 'src/login'),
 };
@@ -93,7 +94,7 @@ const common = {
             'select2': 'js/select2',
             'underscore': 'lodash',
         },
-        modulesDirectories: ['node_modules', 'vendor_modules'],
+        modulesDirectories: ['node_modules', 'vendor_modules', p.kendo],
     },
 };
 
