@@ -1,6 +1,7 @@
 import { tpl } from './login/mathUtil';
 import * as util from './amd/util';
 import * as vendorShimTest from 'amd/vendorShimTest';
+import * as mainCss from './main.css';
 
 let addAll2 = function () {
     return Array.from(arguments).reduce((a, b) => a + b);

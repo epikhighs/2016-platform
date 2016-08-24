@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const webpackValidator = require('webpack-validator');
 const webpackMerge = require('webpack-merge');
-const configPart = require('./lib/devServerPart');
+const configPart = require('./lib/configPart');
 const path = require('path');
 
 const npmLifecycleEvent = process.env.npm_lifecycle_event;
@@ -42,10 +42,11 @@ const common = {
                 }
             },
             {
-                test: /\.json/, loader: 'json-loader',
+                test: /\.json$/, loader: 'json-loader', include: [p.app],
             },
             {
                 test: /\.tpl$/, loader: 'underscore-template-loader',
+                include: [p.app],
                 query: {
                     engine: 'lodash',
                     parseMacros: false,
@@ -54,6 +55,7 @@ const common = {
             },
             {
                 test: /\.tpx$/, loader: 'raw-loader',
+                include: [p.app],
             },
         ],
     },
@@ -102,16 +104,17 @@ var config;
 
 // Detect how npm is run and branch based on that
 if (npmLifecycleEvent === 'build') {
-    config = webpackMerge(common, {
-        devtool: 'source-map',
-    });
+    config = webpackMerge(
+        common,
+        configPart.css(p.app),
+        configPart.devTool('source-map')
+    );
 } else {
     config = webpackMerge(
         common,
-        {
-            devtool: 'source-map',
-        },
-        configPart.devServer({})
+        configPart.css(p.app),
+        configPart.devServer({}),
+        configPart.devTool('source-map')
     );
 }
 

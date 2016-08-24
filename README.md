@@ -49,11 +49,14 @@ Todo
     1. load in 3rd party CSS
 1. dev environment setup
     1. less to CSS packing
+    1. speed up recompile time to less than 500ms
 1. prod env setup
     1. get common chunks shared
     1. JS source maps
     1. CSS source maps
     1. SVGs
+1. app compatibility changes
+    1. update paths for vendor css and image assets
 
 ## babel
 * babel-cli contains babel and the cli
