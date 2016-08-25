@@ -1,5 +1,5 @@
-import { tpl } from './login/mathUtil';
-import * as util from './amd/util';
+import { tpl } from 'login/mathUtil';
+import * as util from 'amd/util';
 import * as vendorShimTest from 'amd/vendorShimTest';
 import * as mainCss from './main.css';
 

@@ -11,10 +11,10 @@ define(function (require) {
     var Backbone = require('backbone');
     var accounting = require('accounting');
     var Bluebird = require('bluebird');
-    var loginTpl = require('login/login.tpl');
-    var sampleJson = require('amd/sampleJson.json');
-    var sampleTpl = require('amd/sample.tpl');
-    var sampleMultipleTpl = require('amd/sampleMultiple.tpx');
+    var loginTpl = require('login/tpl/login.tpl');
+    var sampleJson = require('amd/config/sampleJson.json');
+    var sampleTpl = require('amd/tpl/sample.tpl');
+    var sampleMultipleTpl = require('amd/tpl/sampleMultiple.tpx');
     var someEs6 = require('amd/someEs6');
     var tplHash = require('amd/tpl-hash');
 
@@ -62,4 +62,3 @@ define(function (require) {
         es6: someEs6,
     };
 });
-

@@ -14,18 +14,20 @@ const npmLifecycleEvent = process.env.npm_lifecycle_event;
 // add all path/dir related stuff here to properly handle
 // backslashes vs. forward slashes and other platform specific differences
 const p = {
-    app: path.join(__dirname, 'src'),
-    appTpl: path.join(__dirname, 'src/index.ejs'),
-    amd: path.join(__dirname, 'src/amd'),
+    amd: path.join(__dirname, 'src/legacy/amd'),
     dist: path.join(__dirname, 'dist'),
     kendo: path.join(__dirname, 'vendor_modules/js/kendo'),
-    logo: path.join(__dirname, 'src/logo.png'),
+    legacy: path.join(__dirname, 'src/legacy'),
+    logo: path.join(__dirname, 'src/main/logo.png'),
     login: path.join(__dirname, 'src/login'),
+    main: path.join(__dirname, 'src/main'),
+    mainTpl: path.join(__dirname, 'src/main/index.ejs'),
+    src: path.join(__dirname, 'src'),
 };
 
 const common = {
     entry: {
-        app: p.app, // i guess it auto looks for index.js within this dir
+        main: p.main, // i guess it auto looks for index.js within this dir
         amd: p.amd,
         // login
         // xc
@@ -36,17 +38,17 @@ const common = {
         loaders: [
             {
                 test: /\.js$/, loader: 'babel-loader',
-                include: [p.app],
+                include: [p.src],
                 query: {
                     cacheDirectory: true,
                 }
             },
             {
-                test: /\.json$/, loader: 'json-loader', include: [p.app],
+                test: /config(\/|\\).*\.json$/, loader: 'json-loader', include: [p.src],
             },
             {
-                test: /\.tpl$/, loader: 'underscore-template-loader',
-                include: [p.app],
+                test: /tpl(\/|\\).*\.tpl/, loader: 'underscore-template-loader',
+                include: [p.src],
                 query: {
                     engine: 'lodash',
                     parseMacros: false,
@@ -54,8 +56,8 @@ const common = {
                 },
             },
             {
-                test: /\.tpx$/, loader: 'raw-loader',
-                include: [p.app],
+                test: /tpl(\/|\\).*\.tpx$/, loader: 'raw-loader',
+                include: [p.src],
             },
         ],
     },
@@ -69,34 +71,40 @@ const common = {
         }),
         new FaviconsWebpackPlugin(p.logo),
         new HtmlWebpackPlugin({
-            template: p.appTpl,
+            template: p.mainTpl,
             chunks: ['amd'],
             filename: 'amd.html',
         }),
         new HtmlWebpackPlugin({
-            template: p.appTpl,
-            chunks: ['app'],
+            template: p.mainTpl,
+            chunks: ['main'],
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
         }),
+        // doesn't work...
+        new webpack.IgnorePlugin(/^\.\/lang$/, /moment$/),
     ],
     resolve: {
         alias: {
+            // app related
             'amd': p.amd,
+            'login': p.login,
+            'main': p.main,
+            // vendor related
             'bootstrap': 'js/bootstrap',
             'bootstrapSwitch': 'js/bootstrap-switch',
             'dateRangePicker': 'js/daterangepicker',
-            'login': p.login,
             'marionette': 'backbone.marionette',
             'pagination': 'js/jquery.twbsPagination',
             'radio': 'backbone.radio',
             'select2': 'js/select2',
             'underscore': 'lodash',
         },
-        modulesDirectories: ['node_modules', 'vendor_modules', p.kendo],
+        modulesDirectories: ['node_modules', 'vendor_modules'],
+        root: [p.kendo],
     },
 };
 
@@ -106,13 +114,13 @@ var config;
 if (npmLifecycleEvent === 'build') {
     config = webpackMerge(
         common,
-        configPart.css(p.app),
+        configPart.style(p.main),
         configPart.devTool('source-map')
     );
 } else {
     config = webpackMerge(
         common,
-        configPart.css(p.app),
+        configPart.style(p.main),
         configPart.devServer({}),
         configPart.devTool('source-map')
     );
