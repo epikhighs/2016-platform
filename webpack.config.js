@@ -23,16 +23,15 @@ const p = {
     main: path.join(__dirname, 'src/main'),
     mainTpl: path.join(__dirname, 'src/main/index.ejs'),
     src: path.join(__dirname, 'src'),
+    vendor: path.join(__dirname, 'src/main/vendor.js'),
 };
 
 const common = {
     entry: {
         main: p.main, // i guess it auto looks for index.js within this dir
-        amd: p.amd,
-        // login
-        // xc
-        // digital
-        // vendor
+        // used w/ common chunks so that vendor chunk doesn't get bundled together
+        // with main entry point
+        vendor: p.vendor,
     },
     module: {
         loaders: [
@@ -69,23 +68,18 @@ const common = {
         new CleanWebpackPlugin([p.dist], {
             root: process.cwd(),
         }),
-        new FaviconsWebpackPlugin(p.logo),
+        // new FaviconsWebpackPlugin(p.logo),
         new HtmlWebpackPlugin({
             template: p.mainTpl,
-            chunks: ['amd'],
-            filename: 'amd.html',
-        }),
-        new HtmlWebpackPlugin({
-            template: p.mainTpl,
-            chunks: ['main'],
+            chunks: ['main', 'vendor'],
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
         }),
-        // doesn't work...
-        new webpack.IgnorePlugin(/^\.\/lang$/, /moment$/),
+        new webpack.IgnorePlugin(/locale$/, /moment$/),
+        new webpack.optimize.CommonsChunkPlugin({name: 'vendor',}),
     ],
     resolve: {
         alias: {

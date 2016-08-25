@@ -44,19 +44,22 @@ What I have working so far
 
 Todo
 
+1. directory structure
+    1. put css alongside components in same directory?
+    1. keep styles inline, but have global styles
 1. 3rd party vendor compatibility
     1. load in 3rd party CSS
 1. dev environment setup
     1. less to CSS packing
     1. speed up recompile time to less than 500ms
-        1. fix moment from loading in locale directory
-        - (DLLs) http://engineering.invisionapp.com/post/optimizing-webpack/
-        - http://webpack.github.io/analyse/
+        - use different levels of source map generation
+        - use DLL for vendor chunk instead
 1. prod env setup
-    1. get common chunks shared
     1. JS source maps
     1. CSS source maps
     1. SVGs
+    1. gzip
+    1. figure out hwo to exclude so bamboo deploy can provide conf.json
 1. app compatibility changes
     1. update paths for vendor css and image assets
 
@@ -128,3 +131,6 @@ https://www.npmjs.com/package/favicons-webpack-plugin
 * https://www.npmjs.com/package/webpack-webstorm-debugger-script
 * ./node_modules/webpack/bin/webpack.js --profile --json > stats.json
 * http://webpack.github.io/analyse/
+* http://jonathancreamer.com/advanced-webpack-part-1-the-commonschunk-plugin/
+* http://jonathancreamer.com/advanced-webpack-part-2-code-splitting/
+
