@@ -1,6 +1,12 @@
 # [2016-platform](https://github.com/epikhighs/2016-platform)
 
-What I have working so far
+## Quick start
+
+1. npm run-script build-webpack-dll
+1. npm run-script start-webpack-dev-server
+1. goto http://localhost:8080
+
+## What I have working so far
 
 1. babel
     - Configured babel to have proper support for the features we want with ES next.
@@ -20,6 +26,8 @@ What I have working so far
     - hot module replacement (HMR) works
     - debugging works w/ source maps enabled however devtool: 'source-map' only works
         - 'eval-source-map' has mixed results w/ AMD modules where nested functions are break pointable but not outer define lvl functions.
+    - DLL for vendor files - source maps are included as well so can remote debug.
+        - recompile time is less than 500ms now.
 1. AMD compatibility
     1. for application code
         1. loaded in AMD module
@@ -51,9 +59,6 @@ Todo
     1. load in 3rd party CSS
 1. dev environment setup
     1. less to CSS packing
-    1. speed up recompile time to less than 500ms
-        - use different levels of source map generation
-        - use DLL for vendor chunk instead
 1. prod env setup
     1. JS source maps
     1. CSS source maps
@@ -92,9 +97,6 @@ Todo
         * can get flash of unstyled content otherwise
         * html-webpack-plugin will auto detect and inject the CSS styles
 * it is recommended using path.join for cross-platform to deal with all the path stuff.
-https://www.npmjs.com/package/webpack-validator
-https://www.npmjs.com/package/html-webpack-plugin
-https://www.npmjs.com/package/favicons-webpack-plugin
 
 ## integrating into existing require.js app
 * Approach 1: replace require.js with webpack entirely
@@ -110,15 +112,7 @@ https://www.npmjs.com/package/favicons-webpack-plugin
 
 ## stampit
 * https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9#.78gxnndv6
-## moment
-* http://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack
-```javascript
-    {
-        plugins: [
-            new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]), // saves ~100k from build
-        ]
-    }
-```
+
 ## svgs
 * webpack loaders for svgs
     * svg-react: Load SVG files as JSX-ified React.createClass declarations.

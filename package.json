@@ -25,6 +25,7 @@
     "underscore-template-loader": "^0.7.3"
   },
   "devDependencies": {
+    "add-asset-html-webpack-plugin": "^1.0.2",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
@@ -51,6 +52,7 @@
     "build-babel": "babel src -d build",
     "main": "babel-node src/index.js",
     "build-webpack": "webpack",
+    "build-webpack-dll": "webpack --config=webpack.dll.js",
     "start-webpack-dev-server": "webpack-dev-server"
   },
   "repository": {

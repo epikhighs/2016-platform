@@ -1,6 +1,7 @@
 /**
  * This is a CJS module -- not ES6
  */
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,6 +10,7 @@ const webpackValidator = require('webpack-validator');
 const webpackMerge = require('webpack-merge');
 const configPart = require('./lib/configPart');
 const path = require('path');
+const dllManifestJson = require('./dll/vendor-manifest.json');
 
 const npmLifecycleEvent = process.env.npm_lifecycle_event;
 // add all path/dir related stuff here to properly handle
@@ -16,6 +18,7 @@ const npmLifecycleEvent = process.env.npm_lifecycle_event;
 const p = {
     amd: path.join(__dirname, 'src/legacy/amd'),
     dist: path.join(__dirname, 'dist'),
+    dll: path.join(__dirname, 'dist/dll/dll.vendor.js'),
     kendo: path.join(__dirname, 'vendor_modules/js/kendo'),
     legacy: path.join(__dirname, 'src/legacy'),
     logo: path.join(__dirname, 'src/main/logo.png'),
@@ -23,7 +26,6 @@ const p = {
     main: path.join(__dirname, 'src/main'),
     mainTpl: path.join(__dirname, 'src/main/index.ejs'),
     src: path.join(__dirname, 'src'),
-    vendor: path.join(__dirname, 'src/main/vendor.js'),
 };
 
 const common = {
@@ -31,7 +33,7 @@ const common = {
         main: p.main, // i guess it auto looks for index.js within this dir
         // used w/ common chunks so that vendor chunk doesn't get bundled together
         // with main entry point
-        vendor: p.vendor,
+        // vendor: p.vendor,
     },
     module: {
         loaders: [
@@ -63,23 +65,30 @@ const common = {
     output: {
         path: p.dist,
         filename: '[name].bundle.js',
+        publicPath: '/',
     },
     plugins: [
-        new CleanWebpackPlugin([p.dist], {
-            root: process.cwd(),
-        }),
+        // new CleanWebpackPlugin([p.dist], {
+        //     root: process.cwd(),
+        // }),
         // new FaviconsWebpackPlugin(p.logo),
         new HtmlWebpackPlugin({
             template: p.mainTpl,
-            chunks: ['main', 'vendor'],
+            chunks: ['main'],
+        }),
+        new AddAssetHtmlPlugin({
+            filepath: p.dll,
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
         }),
+        new webpack.DllReferencePlugin({
+            context: '.',
+            manifest: dllManifestJson,
+        }),
         new webpack.IgnorePlugin(/locale$/, /moment$/),
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendor',}),
     ],
     resolve: {
         alias: {
