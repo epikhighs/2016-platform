@@ -6,6 +6,11 @@
     },
     "prod": {
       "plugins": []
+    },
+    "start-webpack-dev-server": {
+      "presets": [
+        "react-hmre"
+      ]
     }
   },
   "plugins": [
