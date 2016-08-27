@@ -38,7 +38,7 @@ const common = {
     module: {
         loaders: [
             {
-                test: /\.js$/, loader: 'babel-loader',
+                test: /\.jsx?$/, loader: 'babel-loader',
                 include: [p.src],
                 query: {
                     cacheDirectory: true,
@@ -108,6 +108,7 @@ const common = {
         },
         modulesDirectories: ['node_modules', 'vendor_modules'],
         root: [p.kendo],
+        extensions: ['', '.js', '.jsx'], // allows importing these file types without extensions
     },
 };
 
@@ -128,5 +129,7 @@ if (npmLifecycleEvent === 'build') {
         configPart.devTool('source-map')
     );
 }
+
+process.env.BABEL_ENV = npmLifecycleEvent; // restricts hot loading to development only
 
 module.exports = webpackValidator(config);
