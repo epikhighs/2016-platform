@@ -1,7 +1,7 @@
 import { tpl } from 'login/mathUtil';
 import * as util from 'amd/util';
 import * as vendorShimTest from 'amd/vendorShimTest';
-import * as mainCss from './main.css';
+import * as mainCss from './main.less';
 import HelloReact from './hello-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
