@@ -28,6 +28,8 @@
         - 'eval-source-map' has mixed results w/ AMD modules where nested functions are break pointable but not outer define lvl functions.
     - DLL for vendor files - source maps are included as well so can remote debug.
         - recompile time is less than 500ms now.
+    - sass/less to CSS packing
+    - svg store plugin works for our use case 
 1. AMD compatibility
     1. for application code
         1. loaded in AMD module
@@ -57,11 +59,9 @@ Todo
     1. put css alongside components in same directory?
     1. keep styles inline, but have global styles
 1. dev environment setup
-    1. less to CSS packing
 1. prod env setup
     1. JS source maps
     1. CSS source maps
-    1. SVGs
     1. gzip
     1. figure out hwo to exclude so bamboo deploy can provide conf.json
 1. app compatibility changes

@@ -11,6 +11,7 @@ const webpackMerge = require('webpack-merge');
 const configPart = require('./lib/configPart');
 const path = require('path');
 const dllManifestJson = require('./dll/vendor-manifest.json');
+var SvgStore = require('webpack-svgstore-plugin');
 
 const npmLifecycleEvent = process.env.npm_lifecycle_event;
 // add all path/dir related stuff here to properly handle
@@ -27,6 +28,7 @@ const p = {
     main: path.join(__dirname, 'src/main'),
     mainTpl: path.join(__dirname, 'src/main/index.ejs'),
     src: path.join(__dirname, 'src'),
+    svg: path.join(__dirname, 'src/svg'),
 };
 
 const common = {
@@ -93,6 +95,13 @@ const common = {
             context: '.',
             manifest: dllManifestJson,
         }),
+        new SvgStore({
+            svgoOptions: {
+                plugins: [
+                    { removeTitle: true }
+                ]
+            }
+        }),
         new webpack.IgnorePlugin(/locale$/, /moment$/),
     ],
     resolve: {
@@ -101,6 +110,7 @@ const common = {
             'amd': p.amd,
             'login': p.login,
             'main': p.main,
+            'svg': p.svg,
             // vendor related
             'bootstrap': 'js/bootstrap',
             'bootstrapSwitch': 'js/bootstrap-switch',

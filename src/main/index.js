@@ -5,6 +5,7 @@ import * as mainCss from './main.less';
 import HelloReact from './hello-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'svg/svg';
 
 let addAll2 = function () {
     return Array.from(arguments).reduce((a, b) => a + b);
