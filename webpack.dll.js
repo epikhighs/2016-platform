@@ -10,7 +10,7 @@ const path = require('path');
 
 const p = {
     dist: path.join(__dirname, 'dist', 'dll'),
-    dll: path.join(__dirname, 'dll', '[name]-manifest.json'),
+    dll: path.join(__dirname, 'dist', '[name]-manifest.json'),
     kendo: path.join(__dirname, 'vendor_modules/js/kendo'),
     lib: path.join(__dirname, 'lib'),
     src: path.join(__dirname, 'src'),
@@ -101,6 +101,7 @@ var config = webpackMerge(
             cssLoader: 'css?sourceMap,minimize',
         }),
         configPart.minJs(),
+        configPart.gzip(),
         configPart.devTool('source-map')
     );
 

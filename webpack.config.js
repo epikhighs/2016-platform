@@ -3,15 +3,17 @@
  */
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+const configPart = require('./lib/configPart');
+const dllManifestJson = require('./dist/vendor-manifest.json');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const SvgStore = require('webpack-svgstore-plugin');
 const webpack = require('webpack');
 const webpackValidator = require('webpack-validator');
 const webpackMerge = require('webpack-merge');
-const configPart = require('./lib/configPart');
-const path = require('path');
-const dllManifestJson = require('./dll/vendor-manifest.json');
-var SvgStore = require('webpack-svgstore-plugin');
+
 // the name of the script from package.json
 const npmLifecycleEvent = process.env.npm_lifecycle_event;
 // add all path/dir related stuff here to properly handle
@@ -138,6 +140,7 @@ if (npmLifecycleEvent === 'build-webpack') {
             cssLoader: 'css?sourceMap,minimize',
         }),
         configPart.minJs(),
+        configPart.gzip(),
         configPart.devTool('source-map')
     );
 } else {
