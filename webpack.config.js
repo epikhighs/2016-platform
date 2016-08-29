@@ -19,6 +19,7 @@ const p = {
     amd: path.join(__dirname, 'src/legacy/amd'),
     dist: path.join(__dirname, 'dist'),
     dll: path.join(__dirname, 'dist/dll/dll.vendor.js'),
+    dllCss: path.join(__dirname, 'dist/dll/dll.vendor.css'),
     kendo: path.join(__dirname, 'vendor_modules/js/kendo'),
     legacy: path.join(__dirname, 'src/legacy'),
     logo: path.join(__dirname, 'src/main/logo.png'),
@@ -75,6 +76,10 @@ const common = {
         new HtmlWebpackPlugin({
             template: p.mainTpl,
             chunks: ['main'],
+        }),
+        new AddAssetHtmlPlugin({
+            filepath: p.dllCss,
+            typeOfAsset: 'css',
         }),
         new AddAssetHtmlPlugin({
             filepath: p.dll,

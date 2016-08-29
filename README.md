@@ -40,6 +40,7 @@
     1. loaded 3rd party vendor code that doesn't need to be shimmed via npm/package.json config
     1. needed to use ProvidePlugin to add jQuery, $ and window.jQuery to global scope
     1. still keeping local copy of kendo until they figure out how to use a private NPM for distro
+    1. loaded in 3rd party CSS as DLL
 1. Existing app compatibility
     1. using underscore-template-loader instead of tpl!
     1. using json-loader instead of text!
@@ -55,8 +56,6 @@ Todo
 1. directory structure
     1. put css alongside components in same directory?
     1. keep styles inline, but have global styles
-1. 3rd party vendor compatibility
-    1. load in 3rd party CSS
 1. dev environment setup
     1. less to CSS packing
 1. prod env setup
@@ -67,6 +66,7 @@ Todo
     1. figure out hwo to exclude so bamboo deploy can provide conf.json
 1. app compatibility changes
     1. update paths for vendor css and image assets
+    
 
 ## babel
 * babel-cli contains babel and the cli

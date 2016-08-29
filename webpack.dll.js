@@ -15,6 +15,7 @@ const p = {
     lib: path.join(__dirname, 'lib'),
     src: path.join(__dirname, 'src'),
     vendor: path.join(__dirname, 'lib/vendor.js'),
+    vendorStyle: path.join(__dirname, 'vendor_modules/css'),
 };
 
 const common = {
@@ -30,6 +31,28 @@ const common = {
                     cacheDirectory: true,
                 }
             },
+            {
+                test: /\.(jpg|png|gif|svg)(\?.*)?$/,
+                loader: 'file',
+                // loader: 'file?name=[path][name].[hash].[ext]',
+                include: p.vendorStyle,
+            },
+            {
+                test: /\.(ttf|eot|woff)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file',
+                query: {
+                    // name: 'font/[hash].[ext]'
+                },
+                include: p.vendorStyle,
+            },
+            {
+                test: /\.(ttf|eot|woff)(\?.*)?$/,
+                loader: 'file',
+                query: {
+                    // name: 'font/[hash].[ext]'
+                },
+                include: p.vendorStyle,
+            }
         ],
     },
     output: {
@@ -73,6 +96,7 @@ const common = {
 
 var config = webpackMerge(
         common,
+        configPart.extractText(p.vendorStyle),
         configPart.devTool('source-map')
     );
 
