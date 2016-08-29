@@ -96,7 +96,11 @@ const common = {
 
 var config = webpackMerge(
         common,
-        configPart.extractText(p.vendorStyle),
+        configPart.extractText({
+            path: p.vendorStyle,
+            cssLoader: 'css?sourceMap,minimize',
+        }),
+        configPart.minJs(),
         configPart.devTool('source-map')
     );
 

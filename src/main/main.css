@@ -1,3 +1,13 @@
 body {
     background: #d0ffbf;
+    color: red;
+    z-index: 600;
+}
+.dddiv {
+    z-index: 5500;
+}
+.dddiv {
+    z-index: 5500;
+    border: solid 1px red;
+    border: #fff solid 1px;
 }

@@ -30,6 +30,7 @@
         - recompile time is less than 500ms now.
     - sass/less to CSS packing
     - svg store plugin works for our use case 
+    - got css/js min and source map working for prod/dev env
 1. AMD compatibility
     1. for application code
         1. loaded in AMD module
@@ -60,8 +61,6 @@ Todo
     1. keep styles inline, but have global styles
 1. dev environment setup
 1. prod env setup
-    1. JS source maps
-    1. CSS source maps
     1. gzip
     1. figure out hwo to exclude so bamboo deploy can provide conf.json
 1. app compatibility changes
@@ -97,7 +96,7 @@ Todo
         * can get flash of unstyled content otherwise
         * html-webpack-plugin will auto detect and inject the CSS styles
 * it is recommended using path.join for cross-platform to deal with all the path stuff.
-
+* process.env.npm_lifecycle_event is the key under 'scripts' for package.json
 ## integrating into existing require.js app
 * Approach 1: replace require.js with webpack entirely
     * replace all require's and all require.js responsiblity to webpack

@@ -12,7 +12,7 @@ const configPart = require('./lib/configPart');
 const path = require('path');
 const dllManifestJson = require('./dll/vendor-manifest.json');
 var SvgStore = require('webpack-svgstore-plugin');
-
+// the name of the script from package.json
 const npmLifecycleEvent = process.env.npm_lifecycle_event;
 // add all path/dir related stuff here to properly handle
 // backslashes vs. forward slashes and other platform specific differences
@@ -130,16 +130,20 @@ const common = {
 var config;
 
 // Detect how npm is run and branch based on that
-if (npmLifecycleEvent === 'build') {
+if (npmLifecycleEvent === 'build-webpack') {
     config = webpackMerge(
         common,
-        configPart.style(p.main),
+        configPart.extractText({
+            path: p.main,
+            cssLoader: 'css?sourceMap,minimize',
+        }),
+        configPart.minJs(),
         configPart.devTool('source-map')
     );
 } else {
     config = webpackMerge(
         common,
-        configPart.style(p.main),
+        configPart.extractText({path: p.main}),
         configPart.devServer({}),
         configPart.devTool('source-map')
     );
