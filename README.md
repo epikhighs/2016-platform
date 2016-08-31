@@ -39,6 +39,18 @@
     1. for vendor code (no shim - e.g. moment.js)
         1. loaded in AMD module from es6 module
         1. loaded in AMD module from AMD module
+1. Testing
+    1. Using mocha to run tests
+        1. limitations
+            1. can debug through IDE with mocha config, but startup is slow.  Can't enable watch with this config
+            1. ONLY pass in *.spec.jsx or *.spec.js files b/c requiring in files that mix in AMD module formats are not supported.  We would need webpack to create chunks for this.
+                1. As a side effect, in the .spec files, you can not import files that use non ES6 module formats.
+        1. Enhanced with babel-plugin-webpack-alias to be able to use alias'd paths in test specs from webpack.config.js
+            1. using cross-env to support passing the NODE_ENV variable to .babelrc
+        1. mocha.opts
+            1. --require jsdom-global/register to support headless browser support.  It adds in global vars that is expected of a browser environment.
+            1. --compilers js:babel-core/register to support transpiling .jsx & .js files with babel (https://babeljs.io/docs/usage/require/)
+             
 1. 3rd party vendor libs
     1. loaded 3rd party vendor code that doesn't need to be shimmed via npm/package.json config
     1. needed to use ProvidePlugin to add jQuery, $ and window.jQuery to global scope
@@ -57,15 +69,18 @@
 Todo
 
 1. directory structure
+    1. http://jaysoo.ca/2016/02/28/organizing-redux-application/
     1. put css alongside components in same directory?
     1. keep styles inline, but have global styles
 1. dev environment setup
+    1. get tests running
 1. prod env setup
-    1. gzip
+    1. get tests running
     1. figure out hwo to exclude so bamboo deploy can provide conf.json
 1. app compatibility changes
     1. update paths for vendor css and image assets
-    
+1. testing
+    1. babel-register and react-addons-test-utils was added to devDeps due to temp solution to just get JS test working in node might swap this out for karma or some other method.
 
 ## babel
 * babel-cli contains babel and the cli
@@ -127,4 +142,12 @@ Todo
 * http://jonathancreamer.com/advanced-webpack-part-1-the-commonschunk-plugin/
 * http://jonathancreamer.com/advanced-webpack-part-2-code-splitting/
 
-asdfasdf
+
+## testing
+* https://github.com/CodingZeal/react-boilerplate
+* http://randycoulman.com/blog/2016/04/05/more-on-testing-with-mocha-and-webpack/
+    * maybe just use karma instead afterall?
+
+
+https://semaphoreci.com/community/tutorials/testing-react-components-with-enzyme-and-mocha
+https://github.com/lelandrichardson/enzyme-example-mocha/blob/master/package.json

@@ -40,6 +40,13 @@ const common = {
         // with main entry point
         // vendor: p.vendor,
     },
+    externals: {
+        'cheerio': 'window',
+        'jsdom': 'window',
+        'react/addons': true,
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true,
+    },
     module: {
         loaders: [
             {

@@ -7,6 +7,11 @@
     "prod": {
       "plugins": []
     },
+    "test": {
+      "plugins": [
+        [ "babel-plugin-webpack-alias", { "config": "./webpack.config.js" } ]
+      ]
+    },
     "start-webpack-dev-server": {
       "presets": [
         "react-hmre"
