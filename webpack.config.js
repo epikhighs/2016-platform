@@ -8,37 +8,19 @@ const configPart = require('./lib/configPart');
 const dllManifestJson = require('./dist/vendor-manifest.json');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
+const p = require('./lib/pathConst');
 const SvgStore = require('webpack-svgstore-plugin');
 const webpack = require('webpack');
 const webpackValidator = require('webpack-validator');
 const webpackMerge = require('webpack-merge');
-
+const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 // the name of the script from package.json
 const npmLifecycleEvent = process.env.npm_lifecycle_event;
-// add all path/dir related stuff here to properly handle
-// backslashes vs. forward slashes and other platform specific differences
-const p = {
-    amd: path.join(__dirname, 'src/legacy/amd'),
-    dist: path.join(__dirname, 'dist'),
-    dll: path.join(__dirname, 'dist/dll/dll.vendor.js'),
-    dllCss: path.join(__dirname, 'dist/dll/dll.vendor.css'),
-    kendo: path.join(__dirname, 'vendor_modules/js/kendo'),
-    legacy: path.join(__dirname, 'src/legacy'),
-    logo: path.join(__dirname, 'src/main/logo.png'),
-    login: path.join(__dirname, 'src/login'),
-    main: path.join(__dirname, 'src/main'),
-    mainTpl: path.join(__dirname, 'src/main/index.ejs'),
-    src: path.join(__dirname, 'src'),
-    svg: path.join(__dirname, 'src/svg'),
-};
 
 const common = {
     entry: {
         main: p.main, // i guess it auto looks for index.js within this dir
-        // used w/ common chunks so that vendor chunk doesn't get bundled together
-        // with main entry point
-        // vendor: p.vendor,
+        test: p.test,
     },
     externals: {
         'cheerio': 'window',
@@ -84,6 +66,7 @@ const common = {
         //     root: process.cwd(),
         // }),
         // new FaviconsWebpackPlugin(p.logo),
+        new WriteFileWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: p.mainTpl,
             chunks: ['main'],
@@ -151,12 +134,29 @@ if (npmLifecycleEvent === 'build-webpack') {
         configPart.devTool('source-map')
     );
 } else {
-    config = webpackMerge(
-        common,
-        configPart.extractText({path: p.main}),
-        configPart.devServer({}),
-        configPart.devTool('source-map')
-    );
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'karma') {
+        console.log('KARMA!!!!!!!!!!!!');
+        config = webpackMerge(
+            common,
+            configPart.extractText({path: p.main}),
+            configPart.devTool('source-map')
+        );
+    } else {
+        console.log('dev server!!!!!!!!!!!!');
+        config = webpackMerge(
+            common,
+            configPart.extractText({path: p.main}),
+            configPart.devServer({}),
+            configPart.devTool('source-map')
+        );
+    }
 }
 
 process.env.BABEL_ENV = npmLifecycleEvent; // restricts hot loading to development only

@@ -1,6 +1,7 @@
 {
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --opts ./mocha.opts",
+    "karmatest": "karma start",
     "build-babel": "babel src -d build",
     "main": "babel-node src/index.js",
     "build-webpack": "webpack",
@@ -62,6 +63,12 @@
     "imports-loader": "^0.6.5",
     "jsdom": "^9.4.3",
     "jsdom-global": "^2.1.0",
+    "karma": "^1.2.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-mocha": "^1.1.1",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.8.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "mocha": "^3.0.2",
@@ -73,7 +80,8 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.14.0",
     "webpack-svgstore-plugin": "^3.0.3",
-    "webpack-validator": "^2.2.2"
+    "webpack-validator": "^2.2.2",
+    "write-file-webpack-plugin": "^3.1.8"
   },
   "repository": {
     "type": "git",

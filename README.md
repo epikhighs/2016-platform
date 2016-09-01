@@ -40,7 +40,7 @@
         1. loaded in AMD module from es6 module
         1. loaded in AMD module from AMD module
 1. Testing
-    1. Using mocha to run tests
+    1. Using mocha to run tests (for bamboo and CI tool)
         1. limitations
             1. can debug through IDE with mocha config, but startup is slow.  Can't enable watch with this config
             1. ONLY pass in *.spec.jsx or *.spec.js files b/c requiring in files that mix in AMD module formats are not supported.  We would need webpack to create chunks for this.
@@ -50,7 +50,18 @@
         1. mocha.opts
             1. --require jsdom-global/register to support headless browser support.  It adds in global vars that is expected of a browser environment.
             1. --compilers js:babel-core/register to support transpiling .jsx & .js files with babel (https://babeljs.io/docs/usage/require/)
-             
+    2. Using karma
+        1. there might be a way to not use karma and only use webpack and mocha where mocha points to the bundled assets that webpack outputs and the webpack dev server will continue to output with hot reloads
+        1. But for now, we're using karma as the middle man.
+        1. debugging sort of seems to work.
+        1. how to get it running
+            1. start dev server
+            2. start karma
+            3. start js debugger in webstorm that points to the url that karma is at
+        1. not an ideal setup and will need to be changed, but has fast feedback loop at least b/c of HMR.
+        1. should look into http://www.ersinakinci.com/how-do-karma-webpack-and-karma-webpack-interact/ to figure out details of karma and webpack
+        1. could not figure out how to get jsdom launcher to work, even when including jsdom-global or a custom browser.js.  if we can get this in then, we could use this setup for bamboo/CI tool
+        1. introduced write-file-webpack-plugin to help facilitate loading in test bundles, but not sure if we need. it's outputting a bunch of patch.json files into dist which is annoying
 1. 3rd party vendor libs
     1. loaded 3rd party vendor code that doesn't need to be shimmed via npm/package.json config
     1. needed to use ProvidePlugin to add jQuery, $ and window.jQuery to global scope
@@ -151,3 +162,5 @@ Todo
 
 https://semaphoreci.com/community/tutorials/testing-react-components-with-enzyme-and-mocha
 https://github.com/lelandrichardson/enzyme-example-mocha/blob/master/package.json
+
+http://nicolasgallagher.com/how-to-test-react-components-karma-webpack/
